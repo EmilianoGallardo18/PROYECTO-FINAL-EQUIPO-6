@@ -45,7 +45,7 @@ def floor(value):
     return ((value + 200) // 133) * 133 - 200
 
 
-state = {'player': 0}
+state = {'player': 0, 'over': False}
 players = [drawx, drawo]
 
 def index(value):
@@ -55,20 +55,74 @@ def index(value):
 
 board = [[None] * 3 for _ in range(3)]
 
+def check_winner():
+    """Return the winning player (0 or 1) or None if there is no winner yet."""
+    lines = []
+    for i in range(3):
+        lines.append([board[i][0], board[i][1], board[i][2]])
+        lines.append([board[0][i], board[1][i], board[2][i]])
+    lines.append([board[0][0], board[1][1], board[2][2]])
+    lines.append([board[0][2], board[1][1], board[2][0]])
+
+    for combo in lines:
+        if combo[0] is not None and combo[0] == combo[1] == combo[2]:
+            return combo[0]
+    return None
+
+
+def board_full():
+    """Return True if all squares have been played."""
+    return all(cell is not None for row in board for cell in row)
+
+
+def show_message(text):
+    """Display a message in the center of the board."""
+    up()
+    goto(0, -220)
+    color('black')
+    write(text, align='center', font=('Arial', 20, 'normal'))
+
 
 def tap(x, y):
     """Draw X or O in tapped square."""
+    if state['over']:
+        return
+
     x = floor(x)
     y = floor(y)
     col = index(x)
     row = index(y)
 
     if board[row][col] is not None:
-        return  # casilla ya ocupada, ignora el tap
+        return  
 
     player = state['player']
     draw = players[player]
     draw(x, y)
     board[row][col] = player
-    update()
+
+    update()    
+
+
+    winner = check_winner()
+    if winner is not None:
+        state['over'] = True
+        show_message(f'Gano el jugador {"X" if winner == 0 else "O"}')
+        update()
+        return
+
+    if board_full():
+        state['over'] = True
+        show_message('Empate')
+        update()
+        return
+
     state['player'] = not player
+
+setup(420, 500, 370, 0)
+hideturtle()
+tracer(False)
+grid()
+update()
+onscreenclick(tap)
+done()
