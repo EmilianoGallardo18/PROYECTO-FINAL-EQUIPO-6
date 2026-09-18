@@ -48,22 +48,27 @@ def floor(value):
 state = {'player': 0}
 players = [drawx, drawo]
 
+def index(value):
+    """Convert grid coordinate to row/column index (0, 1, or 2)."""
+    return int((value + 200) // 133)
+
+
+board = [[None] * 3 for _ in range(3)]
+
 
 def tap(x, y):
     """Draw X or O in tapped square."""
     x = floor(x)
     y = floor(y)
+    col = index(x)
+    row = index(y)
+
+    if board[row][col] is not None:
+        return  # casilla ya ocupada, ignora el tap
+
     player = state['player']
     draw = players[player]
     draw(x, y)
+    board[row][col] = player
     update()
     state['player'] = not player
-
-
-setup(420, 420, 370, 0)
-hideturtle()
-tracer(False)
-grid()
-update()
-onscreenclick(tap)
-done()
