@@ -106,7 +106,7 @@ def world():
             if tile == 1:
                 path.up()
                 path.goto(x + 10, y + 10)
-                path.dot(2, 'white')
+                path.dot(5, 'magenta')     # Change the food size to 5 and the color to magenta
 
 
 def move():
