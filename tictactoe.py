@@ -58,6 +58,7 @@ board = [[None] * 3 for _ in range(3)]
 def check_winner():
     """Return the winning player (0 or 1) or None if there is no winner yet."""
     lines = []
+    # Build all 8 possible winning combinations: 3 rows, 3 columns, 2 diagonals
     for i in range(3):
         lines.append([board[i][0], board[i][1], board[i][2]])
         lines.append([board[0][i], board[1][i], board[2][i]])
@@ -65,6 +66,7 @@ def check_winner():
     lines.append([board[0][2], board[1][1], board[2][0]])
 
     for combo in lines:
+        # A line wins if all 3 cells match and none of them is empty (None)
         if combo[0] is not None and combo[0] == combo[1] == combo[2]:
             return combo[0]
     return None
@@ -93,8 +95,9 @@ def tap(x, y):
     col = index(x)
     row = index(y)
 
+    # Prevent overwriting a square that already has an X or O
     if board[row][col] is not None:
-        return  
+        return 
 
     player = state['player']
     draw = players[player]
