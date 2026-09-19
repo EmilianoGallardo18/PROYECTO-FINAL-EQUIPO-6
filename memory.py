@@ -68,6 +68,11 @@ def draw():
     color('blue')
     write(f"Pares descubiertos: {state['pairs']}", font=('Arial', 14, 'bold'))
 
+    if state['pairs'] == 32:
+        goto(-130, 0)
+        color('green')
+        write("¡Juego Completado!", font=('Arial', 20, 'bold'))
+
     update()
     ontimer(draw, 100)
 
