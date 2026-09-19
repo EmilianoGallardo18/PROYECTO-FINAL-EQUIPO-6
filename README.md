@@ -34,4 +34,11 @@
   ## Elias Ian Lopez Calvario - A01712804
   **Juego:** Memoria
   **Descripción de los cambios:**
+
+  """
+Juego de Memoria - Modificaciones realizadas:
+1. Contador de pares descubiertos.
+2. Detección y mensaje de victoria al destapar todas las casillas.
+3. Ajuste de casillas a tablero de 6x6 y terminar de traducir a espaniol.
+"""
   
