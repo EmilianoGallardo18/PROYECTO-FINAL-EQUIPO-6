@@ -22,3 +22,11 @@
 
 \- Se implementó la detección de ganador (revisando filas, columnas y diagonales) y de empate, mostrando el mensaje correspondiente en pantalla al finalizar la partida.
 
+## Daniel Ayala Domínguez - A00843615
+
+**Juego:** Pacman
+
+**Descripción de los cambios:**
+- Modifiqué la estructura del laberinto en la matriz `tiles` cambiando la distribución de caminos y paredes.
+- Cambié el color y tamaño del alimento a magenta con un punto de mayor visibilidad dentro del mapa.
+- Incrementé la velocidad de los fantasmas ajustando el temporizador del ciclo de movimiento a un intervalo menor.
