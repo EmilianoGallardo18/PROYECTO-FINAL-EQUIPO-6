@@ -1,50 +1,36 @@
-"""Memory, puzzle game of number pairs.
+"""Memory, puzzle game of number pairs."""
 
-Exercises:
-
-1. Count and print how many taps occur.
-2. Decrease the number of tiles to a 4x4 grid.
-3. Detect when all tiles are revealed.
-4. Center single-digit tile.
-5. Use letters instead of tiles.
-"""
-
-from random import *
+from random import shuffle
 from turtle import *
-
 from freegames import path
 
 car = path('car.gif')
 tiles = list(range(32)) * 2
-state = {'mark': None}
+state = {'mark': None, 'pairs': 0}
 hide = [True] * 64
 
-
 def square(x, y):
-    """Draw white square with black outline at (x, y)."""
+    "Draw white square with black outline at (x, y)."
     up()
     goto(x, y)
     down()
     color('black', 'white')
     begin_fill()
-    for count in range(4):
+    for _ in range(4):
         forward(50)
         left(90)
     end_fill()
 
-
 def index(x, y):
-    """Convert (x, y) coordinates to tiles index."""
+    "Convert (x, y) coordinates to tiles index."
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
-
 def xy(count):
-    """Convert tiles count to (x, y) coordinates."""
+    "Convert tiles count to (x, y) coordinates."
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
-
 def tap(x, y):
-    """Update mark and hidden tiles based on tap."""
+    "Update mark and hidden tiles based on tap."
     spot = index(x, y)
     mark = state['mark']
 
@@ -54,10 +40,10 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
-
+        state['pairs'] += 1
 
 def draw():
-    """Draw image and tiles."""
+    "Draw image and tiles."
     clear()
     goto(0, 0)
     shape(car)
@@ -77,9 +63,13 @@ def draw():
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
+    up()
+    goto(-180, 160)
+    color('blue')
+    write(f"Pares descubiertos: {state['pairs']}", font=('Arial', 14, 'bold'))
+
     update()
     ontimer(draw, 100)
-
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
