@@ -30,3 +30,8 @@
 - Modifiqué la estructura del laberinto en la matriz `tiles` cambiando la distribución de caminos y paredes.
 - Cambié el color y tamaño del alimento a magenta con un punto de mayor visibilidad dentro del mapa.
 - Incrementé la velocidad de los fantasmas ajustando el temporizador del ciclo de movimiento a un intervalo menor.
+
+  ## Elias Ian Lopez Calvario - A01712804
+  **Juego:** Memoria
+  **Descripción de los cambios:**
+  
